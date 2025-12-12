@@ -12,12 +12,12 @@
           ]
         }
       },
-      "id": "9b249013-67bd-4d75-9119-59f88569d531",
+      "id": "2399b755-e97b-4cf1-a9a7-0ba3b35b0ac8",
       "name": "Every 5 Minutes",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.1,
       "position": [
-        -816,
+        -880,
         96
       ]
     },
@@ -25,12 +25,12 @@
       "parameters": {
         "jsCode": "const data = $getWorkflowStaticData(\"global\");\n\n// Store the highest height seen for next run\nlet items = $input.all();\nif (items.length > 0 && items[0].json.meta) {\n  const latestHeight = Number(items[0].json.meta.height);\n   data.nextBlockHeight = latestHeight + 1;\n}\n\nreturn items;"
       },
-      "id": "30689ef1-a3ee-4518-9b42-596ac0512308",
+      "id": "a649613a-81e3-4eca-b8a8-b7f8e1a0f5d6",
       "name": "Track Latest Block Height",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -272,
+        -336,
         96
       ]
     },
@@ -45,12 +45,12 @@
           ]
         }
       },
-      "id": "1a0d8239-fc65-439b-aee0-07f1cf42b1d9",
+      "id": "24af5ecf-51b0-44ca-8905-6fc318657c76",
       "name": "Has New Transactions?",
       "type": "n8n-nodes-base.if",
       "typeVersion": 1,
       "position": [
-        -96,
+        -160,
         96
       ]
     },
@@ -58,28 +58,27 @@
       "parameters": {
         "jsCode": "const data = $getWorkflowStaticData('global');\n// Get next height from workflow static data (or start at 0)\nconst nextHeight = data.nextBlockHeight || 0;\n\n// Return the last height so the Symbol node can use it\nreturn [{ json: { fromHeight: nextHeight } }];"
       },
-      "id": "ac56f2db-7210-4a59-8afe-cef205133304",
+      "id": "5a7b8f1b-a225-43be-92ef-62edb70364d1",
       "name": "Get Next Height",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -624,
+        -688,
         96
       ]
     },
     {
       "parameters": {
         "address": "TBIL6D6RURP45YQRWV6Q7YVWIIPLQGLZQFHWFEQ",
-        "type": "16724",
         "fromHeight": "={{ $json.fromHeight }}"
       },
       "type": "n8n-nodes-symbol.symbolGetTransactions",
       "typeVersion": 1,
       "position": [
-        -448,
+        -512,
         96
       ],
-      "id": "901123e1-6d22-4219-b907-7bb5a1ccc2bf",
+      "id": "31984463-6a1d-4778-b9dc-c2927e00cc95",
       "name": "Symbol Get Transactions1",
       "credentials": {
         "symbolApi": {
@@ -90,14 +89,14 @@
     },
     {
       "parameters": {
-        "jsCode": "// Prepare message with transaction details\nconst tx = $input.first().json.transaction;\nconst meta = $input.first().json.meta;\n\nconst message = `Transaction received\n\n*Amount:* ${tx.mosaics[0]?.amount || 'N/A'} (atomic)\n*Mosaic ID:* ${tx.mosaics[0]?.id || 'N/A'}\n*From:* ${tx.signerPublicKey}\n*Message:* ${tx.message || '(none)'}\n*Tx Hash:* \\`${meta.hash}\\`\n*Block Height:* ${meta.height}`;\n\nreturn [{ json: { message } }];"
+        "jsCode": "// Prepare message with transaction details\nconst tx = $input.first().json.transaction;\nconst meta = $input.first().json.meta;\n\nconst message = `New transaction\n\n*Amount:* ${tx.mosaics[0]?.amount || 'N/A'} (atomic)\n*Mosaic ID:* ${tx.mosaics[0]?.id || 'N/A'}\n*From:* ${tx.signerPublicKey}\n*To:* ${tx.recipientAddress}\n*Message:* ${tx.message || '(none)'}\n*Tx Hash:* \\`${meta.hash}\\`\n*Block Height:* ${meta.height}`;\n\nreturn [{ json: { message } }];"
       },
-      "id": "bcedbd0f-6fc0-4eef-890b-2cf0aae02cf8",
+      "id": "2f22972b-dc8a-49d8-832c-d77bf52374eb",
       "name": "Prepare Message",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        64,
+        0,
         0
       ]
     },
@@ -109,10 +108,10 @@
       "type": "n8n-nodes-base.slack",
       "typeVersion": 2.4,
       "position": [
-        272,
+        208,
         0
       ],
-      "id": "81bc2343-1522-4fa5-93be-05f33522f4bb",
+      "id": "a257ea7b-6df5-4683-809e-cb4d97a63314",
       "name": "Send a message",
       "webhookId": "21c23bb2-cb5a-41bd-bad5-10811c4f2d76"
     }
@@ -190,10 +189,10 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "21646b47-b222-4e9a-a011-611f622a191c",
+  "versionId": "ecaae023-01f3-4b7a-9c61-43beaec77546",
   "meta": {
     "instanceId": "102b9bc53d53c47d368e20e7cf869b1dddaf86f40b7358cf61b8eee996aa9ae1"
   },
-  "id": "RVSmqBiXXgMPXwWV",
+  "id": "zyPX42d8ZMncpX92",
   "tags": []
 }
