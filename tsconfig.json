@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "outDir": "./dist",
+    "rootDir": "./",
+    "skipLibCheck": true
+  },
+  "include": [
+    "credentials/**/*",
+    "nodes/**/*"
+  ],
+  "exclude": [
+    "node_modules/**/*",
+    "dist/**/*"
+  ]
+}
+
